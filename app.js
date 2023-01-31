@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGO_URI);
 //CREATING SCHEMAS
 const userDetailsSchema=new mongoose.Schema({
     name:String,
-    age:{Number, min:18, max:100},
+    age:{type: Number, min: 18, max: 100},
     gender:String,
     email:String,
     password:String,
@@ -33,14 +33,19 @@ const userDetailsSchema=new mongoose.Schema({
 //CREATING MODELS
 const userDetailsModel=mongoose.model("userDetail",userDetailsSchema);
 
-userDetailsModel.insertOne({'name':'Priyansh', age:19, 'gender':'male','email':'priyansh9571mehta@gmail.com','password':'123456','city':'Mumbai','country':'India'},
-(err)=>{
-    if(err){
-        console.log(err);
-    }
-else{
-    console.log("inserted");
- }});
+
+//sample data
+
+// userDetailsModel.insertMany({'name':'Priyansh', age:19, 'gender':'male','email':'priyansh9571mehta@gmail.com','password':'123456','city':'Jaipur','country':'India'},
+// (err)=>{
+//     if(err){
+//         console.log(err);
+//     }
+// else{
+//     console.log("inserted");
+//  }});
+
+
 //SERVER LISTEN
 app.listen(3000 || process.env.PORT,()=>{
     console.log("server started");

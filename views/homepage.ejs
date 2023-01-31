@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MADE IN HEAVEN</title>
-    <link rel="stylesheet" href="/styling/homepage.css">
+    <link rel="stylesheet" type="text/css" href="/css/homepage.css">
 </head>
 <body>
     <div id="title">
@@ -15,10 +15,10 @@
     
     <div id="details">
         <h4 id="new">New user</h4>
-        <form action="" method="post" id="regdetails">
-            <label>Name:</label><input type="text">
+        <form action="/home" method="post" id="regdetails">
+            <label>Name:</label><input name="name" type="text">
             <br><br>
-            <label>Age</label><input type="number">
+            <label>Age</label><input name="age" type="number">
             <br><br>
             <label>Gender:</label><select>
                 <option>MALE</option>

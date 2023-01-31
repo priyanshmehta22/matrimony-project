@@ -4,7 +4,6 @@ const bodyParser=require('body-parser');
 const mongoose=require('mongoose');
 const ejs=require('ejs');
 const _=require('lodash');
-const { min } = require('lodash');
 require('dotenv').config()
 
 //SETTING UP EXPRESS
@@ -12,7 +11,7 @@ const app=express();
 app.set('view engine','ejs');
 mongoose.set('strictQuery', true);
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(express.static("styling"));
+app.use(express.static("public"));
 
 
 //CONNECTING TO MONGODB
@@ -44,6 +43,14 @@ const userDetailsModel=mongoose.model("userDetail",userDetailsSchema);
 // else{
 //     console.log("inserted");
 //  }});
+
+
+//GET REQUESTS
+app.get("/",(req,res)=>{
+    res.render("homepage");
+}
+);
+
 
 
 //SERVER LISTEN

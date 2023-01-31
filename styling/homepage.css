@@ -1,0 +1,63 @@
+#reg{
+    margin: 5% 46%;
+    width: 20vw;
+}
+#new{
+    margin-left: 40%;
+}
+#login
+{
+    display: inline;
+    background-color: rgb(244, 95, 120);
+    color: white;
+    border: 1px solid rgb(244, 95, 120);
+    border-radius: 20px;
+    height: 4vh;
+    width: 30%;
+    margin-left: 3%;
+    margin-top: 4%;
+}
+#login:hover
+{
+    background-color: white;
+    color: rgb(244, 95, 120);
+}
+h4{
+    display: inline;
+}
+#title{
+    padding-left: 2%;
+    margin: 2% 41%;
+    width: 20vw;
+    
+}
+#signup{
+    background-color: rgb(244, 95, 120);
+    color: white;
+    border: 1px solid rgb(244, 95, 120);
+    border-radius: 20px;
+    height: 4vh;
+    width: 10%;
+    margin-left: 40%;
+    margin-top: 4%;
+}
+#signup:hover{
+    background-color: white;
+    color: rgb(244, 95, 120);
+}
+#regdetails{
+    margin-top: 4%;
+    width:30vw;
+    margin-left:15%;
+    border: 2px solid rgb(244, 95, 120);
+    padding: 2%;
+    border-radius: 20px;
+}
+#regorlogin
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+#logindetails{
+    margin-top: 5%;
+}

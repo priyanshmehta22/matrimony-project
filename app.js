@@ -15,7 +15,8 @@ app.use(express.static("public"));
 
 
 //CONNECTING TO MONGODB
-mongoose.connect(process.env.MONGO_URI);
+// mongoose.connect(process.env.MONGO_URI);
+mongoose.connect("localhost:27017/matrimony",{useNewUrlParser:true,useUnifiedTopology:true});
 
 //CREATING SCHEMAS
 const userDetailsSchema=new mongoose.Schema({
@@ -32,17 +33,6 @@ const userDetailsSchema=new mongoose.Schema({
 //CREATING MODELS
 const userDetailsModel=mongoose.model("userDetail",userDetailsSchema);
 
-
-//sample data
-
-// userDetailsModel.insertMany({'name':'Priyansh', age:19, 'gender':'male','email':'priyansh9571mehta@gmail.com','password':'123456','city':'Jaipur','country':'India'},
-// (err)=>{
-//     if(err){
-//         console.log(err);
-//     }
-// else{
-//     console.log("inserted");
-//  }});
 
 
 //GET REQUESTS

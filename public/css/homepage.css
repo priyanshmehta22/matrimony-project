@@ -1,63 +1,94 @@
-#reg{
-    margin: 5% 46%;
-    width: 20vw;
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 }
-#new{
-    margin-left: 40%;
+
+@media (min-width: 768px) {
+    .gradient-form {
+        height: 100vh !important;
+    }
 }
-#login
-{
-    display: inline;
-    background-color: rgb(244, 95, 120);
+
+@media (min-width: 769px) {
+    .gradient-custom-2 {
+        border-top-right-radius: .3rem;
+        border-bottom-right-radius: .3rem;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
     color: white;
-    border: 1px solid rgb(244, 95, 120);
-    border-radius: 20px;
-    height: 4vh;
-    width: 30%;
-    margin-left: 3%;
-    margin-top: 4%;
+
 }
-#login:hover
-{
-    background-color: white;
-    color: rgb(244, 95, 120);
+
+.gradient-custom {
+    /* fallback for old browsers */
+    background: #f093fb;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
 }
-h4{
-    display: inline;
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+    font-size: 1rem;
+    line-height: 2.15;
+    padding-left: .75em;
+    padding-right: .75em;
 }
-#title{
-    padding-left: 2%;
-    margin: 2% 41%;
-    width: 20vw;
-    
+
+.card-registration .select-arrow {
+    top: 13px;
 }
-#signup{
-    background-color: rgb(244, 95, 120);
+
+.nav-item {
+    /* color: white; */
+    padding: 1px 0px;
+    padding-right: 10px;
+}
+
+.nav-item .nav-link {
+    text-decoration: none;
     color: white;
-    border: 1px solid rgb(244, 95, 120);
-    border-radius: 20px;
-    height: 4vh;
-    width: 10%;
-    margin-left: 40%;
-    margin-top: 4%;
 }
-#signup:hover{
-    background-color: white;
-    color: rgb(244, 95, 120);
+
+.navbar-brand {
+    padding: 1px 0px;
+    padding-left: 10px;
 }
-#regdetails{
-    margin-top: 4%;
-    width:30vw;
-    margin-left:15%;
-    border: 2px solid rgb(244, 95, 120);
-    padding: 2%;
-    border-radius: 20px;
+
+#testimonials {
+    color: rgb(0, 0, 0);
+    background-color: #FFC3C3;
+    padding: 5% 5%;
+    padding-top: 2%;
+    text-align: center;
+    font-family: 'Montserrat-bold';
 }
-#regorlogin
-{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+
+.dog {
+    /* border-radius: 100%; */
+    margin: 2% auto;
+    display: block;
+    width: 500px;
+    height: 300px;
+
 }
-#logindetails{
-    margin-top: 5%;
+
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
 }

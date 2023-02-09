@@ -1,52 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MADE IN HEAVEN</title>
-    <link rel="stylesheet" type="text/css" href="/css/homepage.css">
-</head>
-<body>
-    <div id="title">
-        <h1>Made in Heaven</h1>
-    </div>
-    <div id="regorlogin">
-    
-    <div id="details">
-        <h4 id="new">New user</h4>
-        <form action="/home" method="post" id="regdetails">
-            <label>Name:</label><input name="name" type="text">
-            <br><br>
-            <label>Age</label><input name="age" type="number">
-            <br><br>
-            <label>Gender:</label><select>
-                <option>MALE</option>
-                <option>FEMALE</option>
-                <option>Others</option>
-            </select>
-            <br><br>
-            <label>Email:</label><input type="email">
-            <br><br>
-            <label>Password:</label><input type="password">
-            
-            <br><br>
-            <label>City:</label><input type="text">
-            <br><br>
-            <label>Country:</label><input type="text">
-        </form>
-        <button id="signup">Signup</button>
-    </div>
-    <div id="reg">
-        <h4>Already a user?</h4>
-        <form id="logindetails">
-            <label>Email:</label><input type="email">
-            <br><br>
-            <label>Password:</label><input type="password">
-        </form>
-        <button id="login">Login</button>
-        <br><br>
-    </div>
-</div>
-</body>
-</html>
+<%- include("partials/header") %>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark"
+        style="background-color:#FF5D5D;">
+        <a class="navbar-brand" href="">Made In Heaven</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/login">Account</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Carousel -->
+    <section id="testimonials">
+
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" data-bs-touch="true"
+            data-bs-interval="4000">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <h2>Found Vicky , the most amazing personality on Made In Heaven</h2>
+                    <img class="dog"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAVcG9j0WigtvmaKC5w4FIMx-Alwf1_2YtIA&usqp=CAU"
+                        class="d-block" alt="dog-profile">
+                    <em>Katrina Kaif, India</em>
+                </div>
+                <div class="carousel-item">
+                    <h2>My Life changed with Miheeka because of Made In Heaven</h2>
+                    <img class="dog"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4tDpt7TyKu4gj3HXAIC_zMVhrFrbl1umh-w&usqp=CAU"
+                        class="d-block" alt="dog-profile">
+                    <em>Rana, India</em>
+                </div>
+                <div class="carousel-item">
+                    <h2>Found the most charming and handsome Man, Who's also student of the year</h2>
+                    <img class="dog"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8qgb_QCOuVg0vU7bUcPjpnYnloPVeZoEI7w&usqp=CAU"
+                        class="d-block" alt="dog-profile">
+                    <em>Kiara, India</em>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+    <%- include("partials/footer") %>

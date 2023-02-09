@@ -14,6 +14,37 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 
+//CONNECTING TO MONGODB
+mongoose.connect(process.env.MONGO_URI);
+
+//CREATING SCHEMAS
+const userDetailsSchema=new mongoose.Schema({
+    name:String,
+    age:{type: Number, min: 18, max: 100},
+    gender:String,
+    email:String,
+    password:String,
+    city:String,
+    country:String,
+});
+
+
+//CREATING MODELS
+const userDetailsModel=mongoose.model("userDetail",userDetailsSchema);
+
+
+//sample data
+
+// userDetailsModel.insertMany({'name':'Priyansh', age:19, 'gender':'male','email':'priyansh9571mehta@gmail.com','password':'123456','city':'Jaipur','country':'India'},
+// (err)=>{
+//     if(err){
+//         console.log(err);
+//     }
+// else{
+//     console.log("inserted");
+//  }});
+
+
 //GET REQUESTS
 app.get("/login", (req, res) => {
     res.render("login");

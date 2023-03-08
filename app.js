@@ -12,51 +12,129 @@ app.set('view engine', 'ejs');
 mongoose.set('strictQuery', true);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
+// SETTING UP MONGOOSE
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
 
 
-//CONNECTING TO MONGODB
-mongoose.connect(process.env.MONGO_URI);
 
 //CREATING SCHEMAS
-const userDetailsSchema=new mongoose.Schema({
-    name:String,
-    age:{type: Number, min: 18, max: 100},
-    gender:String,
-    email:String,
-    password:String,
-    city:String,
-    country:String,
+const userSchemaRegister = new mongoose.Schema({
+    name: { type: String },
+    email: { type: String },
+    password: { type: String },
+    phone: { type: Number },
+    age: { type: Number },
+    religion: { type: String },
+    hobbies: { type: String },
+    starsign: { type: String },
+    occupation: { type: String },
+    gender: { type: String }
 });
 
+const userSchemaPreferences = new mongoose.Schema({
+    name: { type: String },
+    hobbies: { type: String },
+    starsign: { type: String },
+    occupation: { type: String },
+    religion: { type: String },
+    lookingForGender: { type: String }
+});
+const userModel = mongoose.model("User", userSchemaRegister);
+const preferencesModel = mongoose.model("Preference", userSchemaPreferences);
 
-//CREATING MODELS
-const userDetailsModel=mongoose.model("userDetail",userDetailsSchema);
 
-
-//sample data
-
-// userDetailsModel.insertMany({'name':'Priyansh', age:19, 'gender':'male','email':'priyansh9571mehta@gmail.com','password':'123456','city':'Jaipur','country':'India'},
-// (err)=>{
-//     if(err){
-//         console.log(err);
-//     }
-// else{
-//     console.log("inserted");
-//  }});
 
 
 //GET REQUESTS
-app.get("/login", (req, res) => {
-    res.render("login");
-}
-);
 
-app.get("/",function(req,res){
+app.get("/", (req, res) => {
+    res.render("login");
+
+});
+app.get("/signup", (req, res) => {
+    res.render("signup");
+});
+
+app.get("/homepage", function (req, res) {
     res.render("homepage")
 });
 
-app.get("/signup", (req, res) => {
-    res.render("signup");
+app.get("/preferences", function (req, res) {
+    res.render("preferences")
+});
+
+//POST REQUESTS
+app.post("/signup", (req, res) => {
+
+    const users = new userModel({
+        name: req.body.Name,
+        gender: req.body.Gender,
+        religion: req.body.religion,
+        starsign: req.body.starsign,
+        hobbies: req.body.hobbies,
+        email: req.body.Email,
+        password: req.body.Password,
+        phone: req.body.Phone,
+        age: req.body.DOB
+    });
+    users.save();
+    console.log(users.hobbies);
+    console.log("User Registered");
+    res.redirect("/homepage");
+});
+
+
+
+app.post("/", (req, res) => {
+    userModel.findOne({ email: req.body.Email }, function (err, foundUser) {
+        if (err) {
+            console.log(err);
+        } else {
+            if (foundUser) {
+                if (foundUser.password === req.body.Password) {
+                    res.render("homepage");
+                }
+                else {
+                    res.redirect("/")
+                }
+            }
+        }
+    });
+});
+
+app.post("/preferences", (req, res) => {
+
+    const preferences = new preferencesModel({
+        hobbies: req.body.hobbies,
+        starsign: req.body.starsign,
+        lookingForGender: req.body.gridRadios,
+        occupation: req.body.occupation,
+        religion: req.body.religion,
+        age: req.body.age
+    });
+    preferences.save();
+    console.log(preferences);
+    console.log("Finding People...");
+    userModel.find({
+        $or: [
+            { religion: preferences.religion },
+            { starsign: preferences.starsign },
+            { hobbies: preferences.hobbies }]
+    }, function (err, foundUser) {
+        if (err) {
+            console.log(err);
+        } else {
+            if (foundUser) {
+                for (var i = 0; i < foundUser.length; i++) {
+                    console.log("NAME: " + foundUser[i].name);
+                    console.log("HOBBIES: " + foundUser[i].hobbies);
+                    console.log("STARSIGN: " + foundUser[i].starsign);
+                    console.log(" ");
+                    // console.log(foundUser.occupation);
+                }
+            }
+        }
+    });
 });
 
 //SERVER LISTEN

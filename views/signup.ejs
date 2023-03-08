@@ -1,84 +1,106 @@
 <%- include('partials/header') %>
     <section class="vh-100 gradient-custom">
-        <div class="container py-5 h-100">
+        <div class="container py-1 h-100">
             <div class="row justify-content-center align-items-center h-100">
-                <div class="col-12 col-lg-9 col-xl-7">
+                <div class="col-12 col-lg-5 col-xl-7">
                     <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                        <div class="card-body p-4 p-md-5">
-                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                            <form>
+                        <div class="card-body p-4 p-md-4">
+                            <h3 class="mb-4 pb-2 pb-md-0 mb-md-3">Registration Form</h3>
+                            
+                            <form method="POST" action="/signup">
 
                                 <div class="row">
-                                    <div class="col-md-6 mb-4">
+                                    <div class="col-md-12  mb-1">
 
                                         <div class="form-outline">
-                                            <input type="text" id="firstName" class="form-control form-control-lg" />
-                                            <label class="form-label" for="firstName">First Name</label>
+                                            <input type="text" id="Name" name="Name" class="form-control form-control-lg" />
+                                            <label class="form-label">Name</label>
                                         </div>
 
                                     </div>
-                                    <div class="col-md-6 mb-4">
-
-                                        <div class="form-outline">
-                                            <input type="text" id="lastName" class="form-control form-control-lg" />
-                                            <label class="form-label" for="lastName">Last Name</label>
-                                        </div>
-
-                                    </div>
+                                   
                                 </div>
+                            
 
                                 <div class="row">
-                                    <div class="col-md-6 mb-4 d-flex align-items-center">
+                                    <div class="col-md-6 mb-1 d-flex align-items-center">
 
                                         <div class="form-outline datepicker w-100">
-                                            <input type="date" class="form-control form-control-lg" id="birthdayDate" />
-                                            <label for="birthdayDate" class="form-label">Birthday</label>
+                                            <input type="number" class="form-control form-control-lg" name="DOB" id="birthdayDate" />
+                                            <label for="birthdayDate" class="form-label">Age</label>
                                         </div>
 
                                     </div>
-                                    <div class="col-md-6 mb-4">
+                                    <div class="col-md-6 mb-1">
 
                                         <h6 class="mb-2 pb-1">Gender: </h6>
-
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                id="femaleGender" value="option1" checked />
-                                            <label class="form-check-label" for="femaleGender">Female</label>
+                                            <input class="form-check-input" type="radio" name="Gender"
+                                                id="femaleGender" value="female" checked />
+                                            <label class="form-check-label">Female</label>
                                         </div>
 
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                id="maleGender" value="option2" />
-                                            <label class="form-check-label" for="maleGender">Male</label>
-                                        </div>
-
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                                id="otherGender" value="option3" />
-                                            <label class="form-check-label" for="otherGender">Other</label>
+                                            <input class="form-check-input" type="radio" name="Gender"
+                                                id="maleGender" value="male" />
+                                            <label class="form-check-label">Male</label>
                                         </div>
 
                                     </div>
                                 </div>
 
                                 <div class="row">
-                                    <div class="col-md-6 mb-4 pb-2">
+                                    <div class="col-md-6 mb-1 pb-2">
 
                                         <div class="form-outline">
-                                            <input type="email" id="emailAddress"
+                                            <input type="email" id="emailAddress" name="Email"
                                                 class="form-control form-control-lg" />
                                             <label class="form-label" for="emailAddress">Email</label>
                                         </div>
 
+                                        <div class="form-outline">
+                                            <input type="password" id="Password" name="Password"
+                                                class="form-control form-control-lg" />
+                                            <label class="form-label" for="emailAddress">Password</label>
+                                        </div>
+                                        
+
                                     </div>
-                                    <div class="col-md-6 mb-4 pb-2">
+                                    <div class="col-md-6 mb-1 pb-2">
 
                                         <div class="form-outline">
-                                            <input type="tel" id="phoneNumber" class="form-control form-control-lg" />
-                                            <label class="form-label" for="phoneNumber">Phone Number</label>
+                                            <input type="tel" id="phoneNumber" name="Phone" class="form-control form-control-lg" />
+                                            <label class="form-label" for="phoneNumber" name="Phone">Phone Number</label>
+                                        </div>
+                            
+
+                                    </div>
+                                    <div class="col-md-6 mb-1 pb-2">
+                                    <div class="form-outline">
+                                        <input type="tel" id="phoneNumber"  name="starsign" class="form-control form-control-lg" />
+                                        <label class="form-label" for="phoneNumber" name="starsign">Star-Sign</label>
+                                    </div>
+                                </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6  mb-4">
+
+                                        <div class="form-outline">
+                                            <input type="text" id="Name"  name="hobbies" class="form-control form-control-lg" />
+                                            <label class="form-label"  name="hobbies">Hobbies</label>
                                         </div>
 
                                     </div>
+                                    <div class="col-md-6  mb-4">
+
+                                        <div class="form-outline">
+                                            <input type="text" id="Name" name="religion" class="form-control form-control-lg" />
+                                            <label class="form-label"  name="religion">Religion</label>
+                                        </div>
+
+                                    
+                                   
                                 </div>
 
                                 <div class="row">

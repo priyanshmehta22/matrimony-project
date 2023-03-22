@@ -49,7 +49,7 @@ const userSchemaPreferences = new mongoose.Schema({
 
 const userModel = mongoose.model("User", userSchemaRegister);
 const preferencesModel = mongoose.model("Preference", userSchemaPreferences);
-// const resultModel = mongoose.model("Result", result);
+const resultModel = mongoose.model("Dataset", userSchemaPreferences);
 
 
 
@@ -115,33 +115,47 @@ app.post("/", (req, res) => {
 app.post("/preferences", (req, res) => {
 
     const preferences = new preferencesModel({
-        hobbies: req.body.hobbies,
-        starsign: req.body.starsign,
+        income: req.body.income,
+        languages: req.body.languages,
+        highestEducation: req.body.highestEducation,
+        state: req.body.state,
+        disabilities: req.body.disabilities,
+        employmentStatus: req.body.employmentStatus,
         lookingForGender: req.body.gridRadios,
         occupation: req.body.occupation,
         religion: req.body.religion,
+        height: req.body.height,
         age: req.body.age
     });
     preferences.save();
     console.log(preferences);
     console.log("Finding People...");
-    userModel.find({
+    resultModel.find({
         $or: [
             { religion: preferences.religion },
-            { starsign: preferences.starsign },
-            { hobbies: preferences.hobbies }]
+            { occupation: preferences.occupation },
+            { income: preferences.income },
+            { state: preferences.state },
+            { employmentStatus: preferences.employmentStatus },
+            { lookingForGender: preferences.lookingForGender },
+            { height: preferences.height },
+            { age: preferences.age }
+        ]
     }, function (err, foundUser) {
         if (err) {
             console.log(err);
         } else {
             if (foundUser) {
                 for (var i = 0; i < foundUser.length; i++) {
-                    let name = foundUser[i].name;
                     //export name to result.ejs
                     // res.render("result", { name: name });
                     console.log("NAME: " + foundUser[i].name);
-                    console.log("HOBBIES: " + foundUser[i].hobbies);
-                    console.log("STARSIGN: " + foundUser[i].starsign);
+                    console.log("AGE: " + foundUser[i].age);
+                    console.log("RELIGION: " + foundUser[i].religion);
+                    console.log("OCCUPATION: " + foundUser[i].occupation);
+                    console.log("INCOME: " + foundUser[i].income);
+                    console.log("STATE: " + foundUser[i].state);
+                    console.log("EMPLOYMENT STATUS: " + foundUser[i].employmentStatus);
                     console.log(" ");
                     // console.log(foundUser.occupation);
                 }

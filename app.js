@@ -32,16 +32,24 @@ const userSchemaRegister = new mongoose.Schema({
 });
 
 const userSchemaPreferences = new mongoose.Schema({
-    name: { type: String },
-    hobbies: { type: String },
-    starsign: { type: String },
+    height: { type: Number },
+    age: { type: Number },
+    languages: { type: String },
+    disabilities: { type: String },
+    highestEducation: { type: String },
+    income: { type: String },
+    state: { type: String },
+    employmentStatus: { type: String },
     occupation: { type: String },
     religion: { type: String },
     lookingForGender: { type: String }
 });
+
+
+
 const userModel = mongoose.model("User", userSchemaRegister);
 const preferencesModel = mongoose.model("Preference", userSchemaPreferences);
-
+// const resultModel = mongoose.model("Result", result);
 
 
 
@@ -62,6 +70,7 @@ app.get("/homepage", function (req, res) {
 app.get("/preferences", function (req, res) {
     res.render("preferences")
 });
+
 
 //POST REQUESTS
 app.post("/signup", (req, res) => {
@@ -126,6 +135,9 @@ app.post("/preferences", (req, res) => {
         } else {
             if (foundUser) {
                 for (var i = 0; i < foundUser.length; i++) {
+                    let name = foundUser[i].name;
+                    //export name to result.ejs
+                    // res.render("result", { name: name });
                     console.log("NAME: " + foundUser[i].name);
                     console.log("HOBBIES: " + foundUser[i].hobbies);
                     console.log("STARSIGN: " + foundUser[i].starsign);

@@ -125,7 +125,8 @@ app.post("/preferences", (req, res) => {
         occupation: req.body.occupation,
         religion: req.body.religion,
         height: req.body.height,
-        age: req.body.age
+        age: req.body.age,
+       
     });
     preferences.save();
     console.log(preferences);

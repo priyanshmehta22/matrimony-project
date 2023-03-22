@@ -85,7 +85,7 @@ app.post("/signup", (req, res) => {
         email: req.body.Email,
         password: req.body.Password,
         phone: req.body.Phone,
-        age: req.body.DOB
+        age: req.body.age
     });
     users.save();
     console.log(users.hobbies);

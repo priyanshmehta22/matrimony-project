@@ -25,8 +25,7 @@ const userSchemaRegister = new mongoose.Schema({
     phone: { type: Number },
     age: { type: Number },
     religion: { type: String },
-    hobbies: { type: String },
-    starsign: { type: String },
+    
     occupation: { type: String },
     gender: { type: String }
 });

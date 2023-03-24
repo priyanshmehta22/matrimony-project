@@ -25,12 +25,14 @@ const userSchemaRegister = new mongoose.Schema({
     phone: { type: Number },
     age: { type: Number },
     religion: { type: String },
-    
+    salary: { type: Number },
+    state: { type: String },
     occupation: { type: String },
     gender: { type: String }
 });
 
 const userSchemaPreferences = new mongoose.Schema({
+    member_id: { type: String },
     height: { type: Number },
     age: { type: Number },
     languages: { type: String },
@@ -38,17 +40,21 @@ const userSchemaPreferences = new mongoose.Schema({
     highestEducation: { type: String },
     income: { type: String },
     state: { type: String },
-    employmentStatus: { type: String },
+    employed: { type: String },
     occupation: { type: String },
     religion: { type: String },
     lookingForGender: { type: String }
 });
 
+const outputSchema = new mongoose.Schema({
+    member_id: [{ type: String }]
+});
 
 
 const userModel = mongoose.model("User", userSchemaRegister);
 const preferencesModel = mongoose.model("Preference", userSchemaPreferences);
 const resultModel = mongoose.model("Dataset", userSchemaPreferences);
+const outputModel = mongoose.model("Output", outputSchema);
 
 
 
@@ -125,13 +131,14 @@ app.post("/preferences", (req, res) => {
         religion: req.body.religion,
         height: req.body.height,
         age: req.body.age,
-       
+
     });
     preferences.save();
     console.log(preferences);
     console.log("Finding People...");
     resultModel.find({
         $or: [
+            { languages: preferences.languages },
             { religion: preferences.religion },
             { occupation: preferences.occupation },
             { income: preferences.income },
@@ -147,17 +154,12 @@ app.post("/preferences", (req, res) => {
         } else {
             if (foundUser) {
                 for (var i = 0; i < foundUser.length; i++) {
-                    //export name to result.ejs
-                    // res.render("result", { name: name });
-                    console.log("NAME: " + foundUser[i].name);
-                    console.log("AGE: " + foundUser[i].age);
-                    console.log("RELIGION: " + foundUser[i].religion);
-                    console.log("OCCUPATION: " + foundUser[i].occupation);
-                    console.log("INCOME: " + foundUser[i].income);
-                    console.log("STATE: " + foundUser[i].state);
-                    console.log("EMPLOYMENT STATUS: " + foundUser[i].employmentStatus);
+                    console.log(foundUser[i]);
                     console.log(" ");
-                    // console.log(foundUser.occupation);
+                    const output = new outputModel({
+                        member_id: foundUser[i].member_id
+                    });
+                    output.save();
                 }
             }
         }

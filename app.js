@@ -39,22 +39,29 @@ const userSchemaPreferences = new mongoose.Schema({
     disabilities: { type: String },
     highestEducation: { type: String },
     income: { type: String },
-    state: { type: String },
+    permanent_state: { type: String },
     employed: { type: String },
     occupation: { type: String },
-    religion: { type: String },
-    lookingForGender: { type: String }
+    maritalStatus: { type: String },
+    gender: { type: String }
 });
 
-const outputSchema = new mongoose.Schema({
-    member_id: [{ type: String }]
+const resultSchema = new mongoose.Schema({
+    mother_tongue: { type: String },
+    permanent_state: { type: String },
+    gender: { type: String }
+});
+
+const MatchSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    matches: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Dataset' }]
 });
 
 
 const userModel = mongoose.model("User", userSchemaRegister);
 const preferencesModel = mongoose.model("Preference", userSchemaPreferences);
-const resultModel = mongoose.model("Dataset", userSchemaPreferences);
-const outputModel = mongoose.model("Output", outputSchema);
+const resultModel = mongoose.model("Dataset", resultSchema);
+const MatchesModel = mongoose.model("Output", MatchSchema);
 
 
 
@@ -117,57 +124,65 @@ app.post("/", (req, res) => {
     });
 });
 
-app.post("/preferences", (req, res) => {
-
+app.post("/preferences", async (req, res) => {
     const preferences = new preferencesModel({
         income: req.body.income,
         languages: req.body.languages,
         highestEducation: req.body.highestEducation,
-        state: req.body.state,
+        permanent_state: req.body.state,
         disabilities: req.body.disabilities,
         employmentStatus: req.body.employmentStatus,
-        lookingForGender: req.body.gridRadios,
+        gender: req.body.gridRadios,
         occupation: req.body.occupation,
-        religion: req.body.religion,
+        maritalStatus: req.body.maritalStatus,
         height: req.body.height,
         age: req.body.age,
-
     });
     preferences.save();
     console.log(preferences);
     console.log("Finding People...");
     resultModel.find({
-        $or: [
-            { languages: preferences.languages },
-            { religion: preferences.religion },
-            { occupation: preferences.occupation },
-            { income: preferences.income },
-            { state: preferences.state },
-            { employmentStatus: preferences.employmentStatus },
-            { lookingForGender: preferences.lookingForGender },
-            { height: preferences.height },
-            { age: preferences.age }
-        ]
-    }, function (err, foundUser) {
-        if (err) {
-            console.log(err);
-        } else {
-            if (foundUser) {
-                for (var i = 0; i < foundUser.length; i++) {
-                    console.log(foundUser[i]);
-                    console.log(" ");
-                    const output = new outputModel({
-                        member_id: foundUser[i].member_id
+        mother_tongue: preferences.languages,
+        permanent_state: preferences.permanent_state,
+        gender: preferences.gender
+    }
+        , function (err, foundUser) {
+            if (err) {
+                console.log(err);
+            } else {
+                if (foundUser) {
+                    const matchIds = [];
+                    for (var i = 0; i < foundUser.length; i++) {
+                        console.log(foundUser[i]);
+                        matchIds.push(foundUser[i]._id);
+                        console.log(" ");
+                    }
+                    const matches = new MatchesModel({
+                        userId: mongoose.Types.ObjectId("641f3ff6d83138b4ac26503f"),
+                        matches: matchIds
                     });
-                    output.save();
+                    matches.save();
+                    console.log("done");
                 }
             }
-        }
-    });
+
+            res.redirect("/visu");
+        });
 });
+
+app.get("/visu", async (req, res) => {
+    const matches = await MatchesModel.find({}).populate(['matches', 'userId']).lean()
+    res.header("Content-Type", 'application/json');
+    res.send(JSON.stringify(matches, null, 4));
+    console.dir(matches, { depth: null });
+
+
+})
+
+
+
 
 //SERVER LISTEN
 app.listen(3000 || process.env.PORT, () => {
     console.log("server started");
-}
-);
+});

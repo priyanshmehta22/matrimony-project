@@ -102,3 +102,15 @@ background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,114,114,1) 0%, rg
     font-family: 'Montserrat-bold';
     font-size: 1.2rem;
 }
+
+.node {
+    fill: red;
+    stroke: orange;
+    stroke-width: 2px;
+}
+/*add css for links*/
+
+.link {
+    stroke: #777;
+    stroke-width: 2px;
+}

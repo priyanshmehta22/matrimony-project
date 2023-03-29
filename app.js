@@ -6,7 +6,7 @@ const ejs = require("ejs");
 const _ = require("lodash");
 const session = require("express-session");
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
+
 const {
   userModel,
   preferencesModel,
@@ -45,6 +45,9 @@ app.get("/", (req, res) => {
 });
 app.get("/signup", (req, res) => {
   res.render("signup");
+});
+app.get("/graph", (req, res) => {
+  res.render("graph");
 });
 
 app.get("/homepage", function (req, res) {
@@ -158,6 +161,20 @@ app.get("/visu", async (req, res) => {
   res.header("Content-Type", "application/json");
   res.send(JSON.stringify(matches, null, 4));
   console.dir(matches, { depth: null });
+});
+
+app.get("/graph-data", async (req, res) => {
+  const matches = await MatchesModel.find({}).lean();
+  res.header("Content-Type", "application/json");
+  res.send(JSON.stringify(matches, null, 4));
+});
+
+app.get("/user/graph-data", async (req, res) => {
+  console.log(req.user);
+  const userId = req.user?._id;
+  const matches = await MatchesModel.find({ userId: userId }).lean();
+  res.header("Content-Type", "application/json");
+  res.send(JSON.stringify(matches, null, 4));
 });
 
 //SERVER LISTEN

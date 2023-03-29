@@ -4,15 +4,26 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const ejs = require('ejs');
 const _ = require('lodash');
+const session = require('express-session');
+const passport = require('passport');
+const passportLocalMongoose = require('passport-local-mongoose');
+const LocalStrategy = require('passport-local').Strategy;
 require('dotenv').config()
 
-//SETTING UP EXPRESS
+
 const app = express();
 app.set('view engine', 'ejs');
 mongoose.set('strictQuery', true);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-// SETTING UP MONGOOSE
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
 
 
@@ -49,7 +60,8 @@ const userSchemaPreferences = new mongoose.Schema({
 const resultSchema = new mongoose.Schema({
     mother_tongue: { type: String },
     permanent_state: { type: String },
-    gender: { type: String }
+    gender: { type: String },
+    occupation: { type: String }
 });
 
 const MatchSchema = new mongoose.Schema({
@@ -57,18 +69,32 @@ const MatchSchema = new mongoose.Schema({
     matches: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Dataset' }]
 });
 
-
+userSchemaPreferences.plugin(passportLocalMongoose);
 const userModel = mongoose.model("User", userSchemaRegister);
 const preferencesModel = mongoose.model("Preference", userSchemaPreferences);
 const resultModel = mongoose.model("Dataset", resultSchema);
 const MatchesModel = mongoose.model("Output", MatchSchema);
 
+passport.use(preferencesModel.createStrategy());
+passport.use(new LocalStrategy(preferencesModel.authenticate()));
+
+
+
+passport.serializeUser(function (user, done) {
+    done(null, user.id);
+});
+passport.deserializeUser(function (id, done) {
+    User.findById(id, function (err, user) {
+        done(err, user);
+    });
+});
 
 
 //GET REQUESTS
 
 app.get("/", (req, res) => {
-    res.render("login");
+
+    res.render("preferences");
 
 });
 app.get("/signup", (req, res) => {
@@ -80,7 +106,9 @@ app.get("/homepage", function (req, res) {
 });
 
 app.get("/preferences", function (req, res) {
-    res.render("preferences")
+    if (req.isAuthenticated()) {
+        res.render("preferences")
+    }
 });
 
 
@@ -144,7 +172,8 @@ app.post("/preferences", async (req, res) => {
     resultModel.find({
         mother_tongue: preferences.languages,
         permanent_state: preferences.permanent_state,
-        gender: preferences.gender
+        gender: preferences.gender,
+        occupation: preferences.occupation
     }
         , function (err, foundUser) {
             if (err) {

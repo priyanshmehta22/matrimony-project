@@ -12,6 +12,7 @@ const {
     preferencesModel,
     resultModel,
     MatchesModel,
+    UserIdModel
 } = require("./schemas.js");
 require("dotenv").config();
 
@@ -153,7 +154,7 @@ app.post("/preferences", async (req, res) => {
     );
 });
 
-app.get("/visu", async (req, res) => {
+app.get("/graph-data", async (req, res) => {
     const matches = await MatchesModel.find({})
         .populate(["matches", "userId"])
         .lean();
@@ -162,18 +163,31 @@ app.get("/visu", async (req, res) => {
     console.dir(matches, { depth: null });
 });
 
-app.get("/graph-data", async (req, res) => {
+app.get("/visu", async (req, res) => {
     const matches = await MatchesModel.find({}).lean();
     res.header("Content-Type", "application/json");
     res.send(JSON.stringify(matches, null, 4));
 });
 
+//get ids of all people in the dataset
+app.get("/pooradata", async (req, res) => {
+    const matches = await resultModel.find({}).lean();
+    res.header("Content-Type", "application/json");
+    res.send(JSON.stringify(matches, null, 4));
+    console.log(matches.length);
+});
+
+
 app.get("/user/graph-data", async (req, res) => {
     console.log(req.user);
     const userId = req.user?._id;
-    const matches = await MatchesModel.find({ userId: userId }).lean();
+    const matches = await User.find({ userId: userId }).lean();
     res.header("Content-Type", "application/json");
     res.send(JSON.stringify(matches, null, 4));
+});
+
+app.get("/render", (req, res) => {
+    res.render("visu");
 });
 
 //SERVER LISTEN

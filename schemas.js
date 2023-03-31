@@ -40,10 +40,13 @@ const MatchSchema = new mongoose.Schema({
   matches: [{ type: mongoose.Schema.Types.ObjectId, ref: "Dataset" }],
 });
 
+
 userSchemaRegister.plugin(passportLocalMongoose);
 const userModel = mongoose.model("User", userSchemaRegister);
 const preferencesModel = mongoose.model("Preference", userSchemaPreferences);
 const resultModel = mongoose.model("Dataset", resultSchema);
 const MatchesModel = mongoose.model("Output", MatchSchema);
+// const UserIdModel = mongoose.model("UserId", UserIdSchema);
+// const datasetmodel = mongoose.model("Dataset", MatchSchema);
 
 module.exports = { userModel, preferencesModel, resultModel, MatchesModel };

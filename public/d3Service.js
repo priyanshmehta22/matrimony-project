@@ -66,11 +66,11 @@ const d3Func = async () => {
         svg.attr(
           "transform",
           "translate(" +
-            d3.event.translate +
-            ")" +
-            " scale(" +
-            d3.event.scale +
-            ")"
+          d3.event.translate +
+          ")" +
+          " scale(" +
+          d3.event.scale +
+          ")"
         );
       })
     )

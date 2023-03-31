@@ -19,23 +19,32 @@
 <body>
     <script src="//d3js.org/d3.v3.min.js"></script>
     <script>
-   const graphData = fetch("http://localhost:3000/graph-data", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-    }).then((res) => res.json())
-; 
-//   console.log(graphData);
-// //   console.log(await graphData.json());
 
-  const allIds = fetch("http://localhost:3000/pooradata", {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((res) => res.json());
 
-//   console.log(allIds);
-//   console.log(await allIds.json());
+  async function getGraphData() {
+    const response = await fetch("http://localhost:3000/graph-data", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+  }
+
+    getGraphData();
+
+async function getAllIds() {
+    const response = await fetch("http://localhost:3000/pooradata", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    console.log(data);
+  }
+
+    getAllIds();
+
 
 // set a width and height for our SVG
 var width = 1280,

@@ -33,6 +33,9 @@
 const graphData = getGraphData();
 console.log(graphData);
 
+
+
+
 async function getIds() {
     const response = await fetch("http://localhost:3000/pooradata", {
       headers: {
@@ -43,7 +46,7 @@ async function getIds() {
 }
 
 const dataIds = getIds();
-console.log(dataIds);
+// console.log(dataIds);
 
 
 // set a width and height for our SVG

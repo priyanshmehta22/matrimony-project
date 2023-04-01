@@ -27,23 +27,24 @@
         "Content-Type": "application/json",
       },
     });
-    const data = await response.json();
-    console.log(data);
-  }
+    return await response.json();
+}
 
-    getGraphData();
+const graphData = getGraphData();
+console.log(graphData);
 
-async function getAllIds() {
+async function getIds() {
     const response = await fetch("http://localhost:3000/pooradata", {
       headers: {
         "Content-Type": "application/json",
       },
-    });
-    const data = await response.json();
-    console.log(data);
-  }
+    }); 
+    return await response.json();
+}
 
-    getAllIds();
+const dataIds = getIds();
+console.log(dataIds);
+
 
 // set a width and height for our SVG
 var width = 1280,

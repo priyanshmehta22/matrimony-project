@@ -19,19 +19,28 @@
 <body>
     <script src="//d3js.org/d3.v3.min.js"></script>
     <script>
-
-
+async function abc(){
   async function getGraphData() {
     const response = await fetch("http://localhost:3000/graph-data", {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    return await response.json();
+    const gd = await response.json()
+    const ids = gd.map((dataset)=>{
+        return dataset._id;
+    })
+    return ids;
 }
 
-const graphData = getGraphData();
+
+const graphData = await getGraphData();
 console.log(graphData);
+
+// for(var i=0;i<graphData.length;i++){
+//     console.log(graphData[i]);
+// }
+
 
 
 
@@ -42,16 +51,24 @@ async function getIds() {
         "Content-Type": "application/json",
       },
     }); 
-    return await response.json();
+    const pooradataIds = await response.json()
+    const PDids = pooradataIds.map((dataset)=>{
+        return dataset._id;
+    })
+    return PDids;
+}
+const dataIds = await getIds();
+
+for(var i=0;i<dataIds.length;i++){
+    console.log(dataIds[i]);
 }
 
-const dataIds = getIds();
-// console.log(dataIds);
 
 
-// set a width and height for our SVG
 var width = 1280,
     height = 480;
+
+
 
 // setup links
 var links = [
@@ -116,7 +133,8 @@ var links = [
             .attr('y2', function(d) { return d.target.y; });
         
     }
-    
+}
+abc();
 </script>
 </body>
 </html>

@@ -53,7 +53,7 @@ async function getIds() {
     }); 
     const pooradataIds = await response.json()
     const PDids = pooradataIds.map((dataset)=>{
-        return dataset._id;
+        return dataset.member_id;
     })
     return PDids;
 }
